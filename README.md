@@ -1,10 +1,10 @@
-# Namecoin Support Module for Bitcore
+# Doichain Support Module for Bitcore (based on Namecoin version)
 
 [![NPM Package](https://img.shields.io/npm/v/bitcore-namecoin.svg?style=flat-square)](https://www.npmjs.org/package/bitcore-namecoin)
 [![Build Status](https://travis-ci.org/brandonrobertz/bitcore-namecoin.svg?branch=master)](https://travis-ci.org/brandonrobertz/bitcore-namecoin)
 [![Coverage Status](https://coveralls.io/repos/brandonrobertz/bitcore-namecoin/badge.svg?branch=master)](https://coveralls.io/r/brandonrobertz/bitcore-namecoin?branch=master)
 
-`bitcore-namecoin` adds namecoin support to bitcore for creating namecoin `name_*` transactions, private keys, and scripts in [Node.js](http://nodejs.org/) and web browsers.
+`bitcore-doichain` adds doichain support to bitcore for creating doichain `name_*` transactions, private keys, and scripts in [Node.js](http://nodejs.org/) and web browsers.
 
 Note: This is still experimental software. This module is not intended for use in production environments, or for use where real money is at stake, at this point.
 
@@ -13,18 +13,18 @@ See [the main bitcore repo](https://github.com/bitpay/bitcore) for more informat
 ## Getting Started
 
 ```sh
-npm install bitcore-namecoin
+npm install bitcore-doichain
 ```
 
 ```sh
-bower install bitcore-namecoin
+bower install bitcore-doichain
 ```
 
-To import a namecoin WIF (from vanitygen, for example):
+To import a doichain WIF (from vanitygen, for example):
 
 ```javascript
 // return bitcore with namecoin commands overlayed
-var bitcore = require('bitcore-namecoin');
+var bitcore = require('bitcore-doichain');
 var privateKey = bitcore.PrivateKey.fromWIF('74pxNKNpByQ2kMow4d9kF6Z77BYeKztQNLq3dSyU4ES1K5KLNiz');
 var address = privateKey.toAddress();
 console.log( address.toString());
@@ -34,7 +34,7 @@ console.log( address.toString());
 To create a `name_new` transaction:
 
 ```javascript
-var bitcore = require('bitcore-namecoin');
+var bitcore = require('bitcore-doichain');
 var tx = new bitcore.Transaction()
   .from(utxo)
   .nameNew('d/name', 'randomvalue', 'mzGfeiJFdQyiuQnhB45aeBYefzHJSsiSfj')
@@ -70,7 +70,7 @@ var serialized = tx.serialize();
 
 ## Details
 
-`bitcore-namecoin` works by pulling in bitcore and then adding Namecoin-specific
+`bitcore-doichain` works by pulling in bitcore and then adding Namecoin-specific
 version constants, name operation functions onto `Transaction`, and patches
 a few bitcore functions that do not allow for altcoin compatability (specifically
 `bitcore.Script.fromString` and `Transaction.prototype._fromNonP2SH`). These will

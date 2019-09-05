@@ -1,7 +1,7 @@
 {
-  "name": "bitcore-namecoin",
+  "name": "bitcore-doichain",
   "version": "0.0.4",
-  "description": "Namecoin Support for Bitcore",
+  "description": "Doichain Support for Bitcore",
   "author": "Brandon Roberts <brandon@bxroberts.org>",
   "main": "index.js",
   "scripts": {
