@@ -31,12 +31,16 @@ Opcode.map['OP_NAME_UPDATE'] = constants.NAME_UPDATE_OPCODE;
 Opcode.map['3'] = constants.NAME_UPDATE_OPCODE;
 Opcode.OP_NAME_UPDATE = constants.NAME_UPDATE_OPCODE;
 
+Opcode.map['OP_NAME_DOI'] = constants.NAME_DOI_OPCODE;
+Opcode.map['10'] = constants.NAME_DOI_OPCODE;
+Opcode.OP_NAME_DOI = constants.NAME_DOI_OPCODE;
+
 // Namecoin:
 // Version Bytes:
 // https://en.bitcoin.it/wiki/Base58Check_encoding
 var networkNamecoin = Networks.add({
-  name: 'namecoin',
-  alias: 'namecoin',
+  name: 'doichain',
+  alias: 'doichain',
   // https://github.com/namecoin/namecore/commit/4b33389f2ed7809404b1a96ae358e148a765ab6f
   pubkeyhash: 0x34,
   privatekey: 0xB4,
@@ -64,13 +68,13 @@ var networkNamecoin = Networks.add({
 Script.fromString = script.fromStringNmc;
 
 Script.prototype.isNameOut = function() {
-  return this.isNameNew() || this.isNameFirstUpdate() || this.isNameUpdate();
+  return this.isNameNew() || this.isNameFirstUpdate() || this.isNameUpdate() || this.isNameDoi();
 };
 
 Script.prototype.getPublicKeyHashName = function() {
   $.checkState(this.isNameNew() ||
                this.isNameFirstUpdate() ||
-               this.isNameUpdate(), 'Non-Namecoin script output');
+               this.isNameUpdate() || this.isNameDoi(), 'Non-Namecoin script output');
   // TODO: sanity check on pubKey hash length / type
   // otherwise the errors moving forward are cryptic
   switch(this.chunks[0].opcodenum) {
@@ -80,6 +84,8 @@ Script.prototype.getPublicKeyHashName = function() {
     return this.chunks[8].buf;
   case Opcode.OP_NAME_UPDATE:
     return this.chunks[7].buf;
+  case Opcode.OP_NAME_DOI:
+    return this.chunks[7].buf;  
   default:
     throw new Error('Non-Namecoin script output');
   }
@@ -97,6 +103,10 @@ Script.prototype.isNameUpdate = function() {
   return this.chunks[0].opcodenum === Opcode.OP_NAME_UPDATE;
 };
 
+Script.prototype.isNameDoi = function() {
+  return this.chunks[0].opcodenum === Opcode.OP_NAME_DOI;
+};
+
 Transaction.prototype._fromNonP2SH = NameInput.patchFromNonP2SH; //patchFromNonP2SH;
 Transaction.Input.NameInput = require('./lib/nameinput.js');
 
@@ -104,5 +114,6 @@ Transaction.Input.NameInput = require('./lib/nameinput.js');
 Transaction.prototype.nameNew = names.nameNew;
 Transaction.prototype.nameFirstUpdate = names.nameFirstUpdate;
 Transaction.prototype.nameUpdate = names.nameUpdate;
+Transaction.prototype.nameDoi = names.nameDoi;
 
 module.exports = bitcore;
