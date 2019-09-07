@@ -1,6 +1,6 @@
 {
   "name": "bitcore-doichain",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Doichain Support for Bitcore",
   "author": "Brandon Roberts <brandon@bxroberts.org>",
   "main": "index.js",
@@ -11,12 +11,10 @@
     "build": "gulp"
   },
   "keywords": [
-    "namecoin",
+    "doichain",
     "bitcore",
-    "nmc",
-    "name_new",
-    "name_firstupdate",
-    "name_update",
+    "doi",
+    "name_doi",
     "transaction"
   ],
   "repository": {
@@ -29,7 +27,7 @@
     "crypto-hashing": "^0.3.1",
     "inherits": "^2.0.1",
     "lodash": "^3.10.1",
-    "doichain-transaction": "^0.0.2"
+    "doichain-transaction": "^0.0.3"
   },
   "devDependencies": {
     "bitcore-build": "bitpay/bitcore-build",
