@@ -8,9 +8,12 @@ var script = require('./lib/script');
 var names = require('./lib/names');
 var constants = require('./lib/constants');
 var NameInput = require('./lib/nameinput');
+import getAddressOfPublicKey from "./lib/doichain/getAddressOfPublicKey"
 import createWallet from "./lib/doichain/createWallet";
 import registerPublicKey from "./lib/doichain/registerPublicKey";
-
+import getUTXOAndBalance from "./lib/doichain/getUTXOAndBalance"
+import createDoichainEntry from "./lib/doichain/createDoichainEntry"
+import createRawDoichainTX from "./lib/doichain/createRawDoichainTX"
 /**
  * Set up bitcore specific constants, version numbers,
  * and helper functions for working with namecoin. Variables
@@ -118,29 +121,12 @@ Transaction.prototype.nameFirstUpdate = names.nameFirstUpdate;
 Transaction.prototype.nameUpdate = names.nameUpdate;
 Transaction.prototype.nameDoi = names.nameDoi;
 
-bitcore.createWallet = createWallet
-bitcore.registerPublicKey = registerPublicKey
-/*
-bitcore.testFunction = function(){
-  const nameId = generateNameId();
+// Add some Doichain functions
+bitcore.createWallet = createWallet //create public and private key
+bitcore.registerPublicKey = registerPublicKey //register public key on doichain validator node
+bitcore.getUTXOAndBalance = getUTXOAndBalance //get unconfirmed transactions from
+bitcore.createDoichainEntry = createDoichainEntry //generate entry for doichain with a NameId and value
+bitcore.createRawDoichainTX = createRawDoichainTX //create a
+bitcore.getAddressOfPublicKey = getAddressOfPublicKey
 
-  const message = to+from;  //TODO why to+from and not from+to?
-  const recipientsPrivateKey = getPrivatKey;  //TODO check if we can just use our (alice) PrivatKey here for the signature
-  const signature = getSignature(message, recipientsPrivateKey);
-  let dataHash = "";
-  if(data) dataHash = getDataHash(data);
-  const parts = to.split("@");
-  const domain = parts[parts.length-1];
-
-  const publicKeyAndAddress = getPublicKeyAndAddress(domain);
-  const fromHostUrl = getUrl()
-  const fromHostUrlEncrypted = encryptMessage(publicKeyAndAddress.publicKey,fromHostUrl);
-
-  const nameValue = JSON.stringify({
-    signature: signature,
-    dataHash: dataHash,
-    from: fromHostUrlEncrypted
-  });
-
-} */
 export default bitcore;

@@ -25,15 +25,15 @@
     "binstring": "^0.2.1",
     "bitcore": "^0.13.5",
     "bitcore-message": "0.12.0",
-    "fetch": "1.1.0",
     "bs58": "^4.0.1",
-    "crypto-js": "^3.1.9-1",
-    "secp256k1": "^3.7.1",
-    "standard-ecies": "^1.0.0",
     "crypto-hashing": "^0.3.1",
+    "crypto-js": "^3.1.9-1",
+    "doichain-transaction": "^0.0.3",
+    "fetch": "1.1.0",
     "inherits": "^2.0.1",
     "lodash": "^4.17.12",
-    "doichain-transaction": "^0.0.3"
+    "secp256k1": "^3.7.1",
+    "standard-ecies": "^1.0.0"
   },
   "devDependencies": {
     "bitcore-build": "bitpay/bitcore-build",
