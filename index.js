@@ -6,14 +6,20 @@ var Transaction = bitcore.Transaction;
 var Script = bitcore.Script;
 var script = require('./lib/script');
 var names = require('./lib/names');
-var constants = require('./lib/constants');
 var NameInput = require('./lib/nameinput');
+
+import constants from "./lib/constants"
+import settings from "./lib/doichain/settings"
+import getUrl from "./lib/doichain/getUrl"
+import encryptMessage from "./lib/doichain/encryptMessage"
 import getAddressOfPublicKey from "./lib/doichain/getAddressOfPublicKey"
-import createWallet from "./lib/doichain/createWallet";
+import createWallet from "./lib/doichain/createWallet";  //TODO replace localstorage when using not in browser
 import registerPublicKey from "./lib/doichain/registerPublicKey";
 import getUTXOAndBalance from "./lib/doichain/getUTXOAndBalance"
 import createDoichainEntry from "./lib/doichain/createDoichainEntry"
 import createRawDoichainTX from "./lib/doichain/createRawDoichainTX"
+import broadcastTransaction from "./lib/doichain/broadcastTransaction"
+
 /**
  * Set up bitcore specific constants, version numbers,
  * and helper functions for working with namecoin. Variables
@@ -43,25 +49,32 @@ Opcode.OP_NAME_DOI = constants.NAME_DOI_OPCODE;
 // Namecoin:
 // Version Bytes:
 // https://en.bitcoin.it/wiki/Base58Check_encoding
-var networkNamecoin = Networks.add({
-  name: 'doichain',
+var doichainMainnet = bitcore.Networks.add({
+  name:  'doichain',
   alias: 'doichain',
   // https://github.com/namecoin/namecore/commit/4b33389f2ed7809404b1a96ae358e148a765ab6f
-  pubkeyhash: 0x34,
-  privatekey: 0xB4,
-  scripthash: 13,
+  pubkeyhash: 111, //mainnet 52  //111 testnet  //0x34 (bitcoin?)
+  privatekey: 0xB4,  //TODO this doesn't seem correct
+  scripthash: 13, //TODO  please double check ?
   // xpubkey: 0x043587cf,
   // xprivkey: 0x04358394,
   // xpubkey: null, // HD extended pubkey (nonexistant in namecoin o.g.)
   // xprivkey: null, // HD extended privkey (nonexistant in namecoin o.g.)
-  networkMagic: 0xf9beb4fe,
-  port: 8334,
-  dnsSeeds: [
-    'nmc.seed.quisquis.de',
-    'namecoindnsseed.digi-masters.com',
-    'namecoindnsseed.digi-masters.uk',
-    'dnsseed.namecoin.webbtc.com'
-  ]
+  networkMagic: 0xf9beb4fe, //TODO  please double check ?
+  port: 8338,
+  dnsSeeds: []
+});
+
+//TODO in case of mainnet please change this here.
+const doichainTestnet = bitcore.Networks.add({
+  name:  'doichain-testnet',
+  alias: 'doichain-testnet',
+  pubkeyhash: 111,  //mainnet 52  //111 testnet  //0x34 (bitcoin?)
+  privatekey: 0xB4,  //TODO  please double check ?
+  scripthash: 13, //TODO  please double check ?
+  networkMagic: 0xf9beb4fe, //TODO  please double check ?
+  port: 18338,
+  dnsSeeds: []
 });
 
 // networkNamecoin.namecoin = networkNamecoin;
@@ -122,11 +135,16 @@ Transaction.prototype.nameUpdate = names.nameUpdate;
 Transaction.prototype.nameDoi = names.nameDoi;
 
 // Add some Doichain functions
+bitcore.constants = constants
+bitcore.settings = settings
+bitcore.getUrl = getUrl
+bitcore.encryptMessage = encryptMessage //encrypts a message with a public key
 bitcore.createWallet = createWallet //create public and private key
 bitcore.registerPublicKey = registerPublicKey //register public key on doichain validator node
 bitcore.getUTXOAndBalance = getUTXOAndBalance //get unconfirmed transactions from
 bitcore.createDoichainEntry = createDoichainEntry //generate entry for doichain with a NameId and value
 bitcore.createRawDoichainTX = createRawDoichainTX //create a
-bitcore.getAddressOfPublicKey = getAddressOfPublicKey
+bitcore.getAddressOfPublicKey = getAddressOfPublicKey //get the (first) doichain address from a public key
+bitcore.broadcastTransaction = broadcastTransaction //broadcast the transaction together with the encrypted email permission request
 
 export default bitcore;
