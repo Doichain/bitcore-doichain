@@ -1,9 +1,5 @@
 # Doichain Support Module for Bitcore (based on Namecoin version)
 
-[![NPM Package](https://img.shields.io/npm/v/bitcore-namecoin.svg?style=flat-square)](https://www.npmjs.org/package/bitcore-namecoin)
-[![Build Status](https://travis-ci.org/brandonrobertz/bitcore-namecoin.svg?branch=master)](https://travis-ci.org/brandonrobertz/bitcore-namecoin)
-[![Coverage Status](https://coveralls.io/repos/brandonrobertz/bitcore-namecoin/badge.svg?branch=master)](https://coveralls.io/r/brandonrobertz/bitcore-namecoin?branch=master)
-
 `bitcore-doichain` adds doichain support to bitcore for creating doichain `name_*` transactions, private keys, and scripts in [Node.js](http://nodejs.org/) and web browsers.
 
 Note: This is still experimental software. This module is not intended for use in production environments, or for use where real money is at stake, at this point.
@@ -15,10 +11,33 @@ See [the main bitcore repo](https://github.com/bitpay/bitcore) for more informat
 ```sh
 npm install bitcore-doichain
 ```
-
+```sh
+yarn add bitcore-doichain
+```
 ```sh
 bower install bitcore-doichain
 ```
+
+To create a doichain wallet (privateKey & publicKey) and register it at a doichain dApp (so you can retrieve UTXO's)
+```javascript
+import bitcore from "bitcore-doichain";
+
+const wallet = bitcore.createWallet(name)
+const url = bitcore.getUrl()+"/api/v1/importpubkey"
+bitcore.registerPublicKey(url, wallet.publicKey)
+```
+
+To get a Doichain Address from a Doichain PublicKey and request UTXO's (and balances)
+```javascript
+import bitcore from "bitcore-doichain";
+const addr = bitcore.getAddressOfPublicKey(publicKey)
+const amount = 0.05 //amount (in DOI) to send - amount determines the required amount of utxos to be used as inputs
+const response = await bitcore.getUTXOAndBalance(addr.toString(),amount)
+response.balanceAllUTXOs //balance of all UTXO's of this address
+amountUsedUTXOs //the amount of all used utxos which are required to fullfil the requested amount
+response.change //the change which results between the amount to spend and the amount of used UTXOs
+response.utxos //the full unspent transactions with details in an array
+```        
 
 To import a doichain WIF (from vanitygen, for example):
 
