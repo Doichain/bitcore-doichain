@@ -34,7 +34,7 @@ const addr = bitcore.getAddressOfPublicKey(publicKey)
 const amount = 0.05 //amount (in DOI) to send - amount determines the required amount of utxos to be used as inputs
 const response = await bitcore.getUTXOAndBalance(addr.toString(),amount)
 response.balanceAllUTXOs //balance of all UTXO's of this address
-amountUsedUTXOs //the amount of all used utxos which are required to fullfil the requested amount
+response.amountUsedUTXOs //the amount of all used utxos which are required to fullfil the requested amount
 response.change //the change which results between the amount to spend and the amount of used UTXOs
 response.utxos //the full unspent transactions with details in an array
 ```        
