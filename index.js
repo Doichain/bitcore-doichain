@@ -13,8 +13,7 @@ import settings from "./lib/doichain/settings"
 import getUrl from "./lib/doichain/getUrl"
 import encryptMessage from "./lib/doichain/encryptMessage"
 import getAddressOfPublicKey from "./lib/doichain/getAddressOfPublicKey"
-import createWallet from "./lib/doichain/createWallet";  //TODO replace localstorage when using not in browser
-import registerPublicKey from "./lib/doichain/registerPublicKey";
+import createWallet from "./lib/doichain/createWallet";
 import getUTXOAndBalance from "./lib/doichain/getUTXOAndBalance"
 import createDoichainEntry from "./lib/doichain/createDoichainEntry"
 import createRawDoichainTX from "./lib/doichain/createRawDoichainTX"
@@ -103,7 +102,7 @@ Script.prototype.getPublicKeyHashName = function() {
   case Opcode.OP_NAME_UPDATE:
     return this.chunks[7].buf;
   case Opcode.OP_NAME_DOI:
-    return this.chunks[7].buf;  
+    return this.chunks[7].buf;
   default:
     throw new Error('Non-Namecoin script output');
   }
@@ -140,7 +139,6 @@ bitcore.settings = settings
 bitcore.getUrl = getUrl
 bitcore.encryptMessage = encryptMessage //encrypts a message with a public key
 bitcore.createWallet = createWallet //create public and private key
-bitcore.registerPublicKey = registerPublicKey //register public key on doichain validator node
 bitcore.getUTXOAndBalance = getUTXOAndBalance //get unconfirmed transactions from
 bitcore.createDoichainEntry = createDoichainEntry //generate entry for doichain with a NameId and value
 bitcore.createRawDoichainTX = createRawDoichainTX //create a
