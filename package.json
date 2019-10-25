@@ -1,6 +1,6 @@
 {
   "name": "bitcore-doichain",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Doichain Support for Bitcore",
   "author": "Nico Krause <nico@le-space.de>",
   "main": "index.js",
