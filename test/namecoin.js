@@ -17,6 +17,7 @@ var NameInput = require('../lib/nameinput');
 chai.config.includeStack = true;
 
 describe('Namecoin', function() {
+
   // From vanitygen:
   // Address: NAMEuWT2icj3ef8HWJwetZyZbXaZUJ5hFT
   // Privkey: 74pxNKNpByQ2kMow4d9kF6Z77BYeKztQNLq3dSyU4ES1K5KLNiz
