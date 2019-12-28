@@ -1,3 +1,4 @@
+.idea
 *.sw[a-z]
 coverage
 node_modules
