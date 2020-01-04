@@ -14,6 +14,7 @@ import getUrl from "./lib/doichain/getUrl"
 import encryptMessage from "./lib/doichain/encryptMessage"
 import getAddressOfPublicKey from "./lib/doichain/getAddressOfPublicKey"
 import createWallet from "./lib/doichain/createWallet";
+import listTransactions from "./lib/doichain/listTransactions"
 import getUTXOAndBalance from "./lib/doichain/getUTXOAndBalance"
 import createDoichainEntry from "./lib/doichain/createDoichainEntry"
 import createRawDoichainTX from "./lib/doichain/createRawDoichainTX"
@@ -139,6 +140,7 @@ bitcore.settings = settings
 bitcore.getUrl = getUrl
 bitcore.encryptMessage = encryptMessage //encrypts a message with a public key
 bitcore.createWallet = createWallet //create public and private key
+bitcore.listTransactions = listTransactions //list transaction of a wallet address
 bitcore.getUTXOAndBalance = getUTXOAndBalance //get unconfirmed transactions from
 bitcore.createDoichainEntry = createDoichainEntry //generate entry for doichain with a NameId and value
 bitcore.createRawDoichainTX = createRawDoichainTX //create a
