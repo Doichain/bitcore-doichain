@@ -20,6 +20,7 @@ import createDoichainEntry from "./lib/doichain/createDoichainEntry"
 import createRawDoichainTX from "./lib/doichain/createRawDoichainTX"
 import broadcastTransaction from "./lib/doichain/broadcastTransaction"
 import verify from "./lib/doichain/verify"
+import {getOffchainUTXOs,getUTXOs4EmailVerificationRequest,createDoicoinTransaction, updateWalletBalance} from "./lib/doichain/transactionUtils"
 /**
  * Set up bitcore specific constants, version numbers,
  * and helper functions for working with namecoin. Variables
@@ -146,5 +147,14 @@ bitcore.createDoichainEntry = createDoichainEntry //generate entry for doichain 
 bitcore.createRawDoichainTX = createRawDoichainTX //create a
 bitcore.getAddressOfPublicKey = getAddressOfPublicKey //get the (first) doichain address from a public key
 bitcore.broadcastTransaction = broadcastTransaction //broadcast the transaction together with the encrypted email permission request
+bitcore.getOffchainUTXOs = getOffchainUTXOs //
+bitcore.getUTXOs4EmailVerificationRequest = getUTXOs4EmailVerificationRequest
+bitcore.broadcastTransaction = broadcastTransaction
+bitcore.createDoicoinTransaction = createDoicoinTransaction
+bitcore.updateWalletBalance = updateWalletBalance
 bitcore.verify = verify
+bitcore.DOI_STATE_WAITING_FOR_CONFIRMATION = 0
+bitcore.DOI_STATE_SENT_TO_VALIDATOR = 1
+bitcore.DOI_STATE_VALIDATOR_SENT_DOI_REQUEST_EMAIL = 2
+bitcore.DOI_STATE_VALIDATOR_RECEIVED_CONFIRMATION = 3
 export default bitcore;
