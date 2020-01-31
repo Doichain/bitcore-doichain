@@ -11,6 +11,7 @@ var NameInput = require('./lib/nameinput');
 import constants from "./lib/constants"
 import settings from "./lib/doichain/settings"
 import getUrl from "./lib/doichain/getUrl"
+import getSignature from "./lib/doichain/getSignature"
 import encryptMessage from "./lib/doichain/encryptMessage"
 import getAddressOfPublicKey from "./lib/doichain/getAddressOfPublicKey"
 import createWallet from "./lib/doichain/createWallet";
@@ -20,6 +21,9 @@ import createDoichainEntry from "./lib/doichain/createDoichainEntry"
 import createRawDoichainTX from "./lib/doichain/createRawDoichainTX"
 import broadcastTransaction from "./lib/doichain/broadcastTransaction"
 import verify from "./lib/doichain/verify"
+import requestNameShow from "./lib/doichain/requestNameShow"
+import {createDOIRequestTransaction,getValidatorPublicKey,encryptTemplate,encryptEmailVerification} from "./lib/doichain/transactionUtils"
+
 import {getOffchainUTXOs,getUTXOs4EmailVerificationRequest,createDoicoinTransaction, updateWalletBalance} from "./lib/doichain/transactionUtils"
 /**
  * Set up bitcore specific constants, version numbers,
@@ -139,6 +143,7 @@ Transaction.prototype.nameDoi = names.nameDoi;
 bitcore.constants = constants
 bitcore.settings = settings
 bitcore.getUrl = getUrl
+bitcore.getSignature = getSignature //creates a signature using a message and a privatekey
 bitcore.encryptMessage = encryptMessage //encrypts a message with a public key
 bitcore.createWallet = createWallet //create public and private key
 bitcore.listTransactions = listTransactions //list transaction of a wallet address
@@ -151,8 +156,13 @@ bitcore.getOffchainUTXOs = getOffchainUTXOs //
 bitcore.getUTXOs4EmailVerificationRequest = getUTXOs4EmailVerificationRequest
 bitcore.broadcastTransaction = broadcastTransaction
 bitcore.createDoicoinTransaction = createDoicoinTransaction
-bitcore.updateWalletBalance = updateWalletBalance
+bitcore.createDOIRequestTransaction = createDOIRequestTransaction
+bitcore.getValidatorPublicKey = getValidatorPublicKey
+bitcore.updateWalletBalance = updateWalletBalance,
 bitcore.verify = verify
+bitcore.encryptTemplate = encryptTemplate
+bitcore.encryptEmailVerification = encryptEmailVerification
+bitcore.requestNameShow = requestNameShow
 bitcore.DOI_STATE_WAITING_FOR_CONFIRMATION = 0
 bitcore.DOI_STATE_SENT_TO_VALIDATOR = 1
 bitcore.DOI_STATE_VALIDATOR_SENT_DOI_REQUEST_EMAIL = 2
